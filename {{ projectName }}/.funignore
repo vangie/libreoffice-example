@@ -1,0 +1,5 @@
+.env
+package-lock.json
+template.yml
+.funignore
+./node_modules/fc-libreoffice/bin/lo.tar.br

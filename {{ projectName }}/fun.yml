@@ -1,0 +1,7 @@
+runtime: nodejs8
+tasks: 
+  - apt: libnss3
+  - shell: >-
+      npm install --production
+      && mkdir -p .fun/nas/auto-default/libreoffice/
+      && mv ./node_modules/fc-libreoffice/bin/lo.tar.br .fun/nas/auto-default/libreoffice/

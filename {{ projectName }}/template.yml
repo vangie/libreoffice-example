@@ -1,0 +1,18 @@
+ROSTemplateFormatVersion: '2015-09-01'
+Transform: 'Aliyun::Serverless-2018-04-03'
+Resources:
+  libreoffice:
+    Type: 'Aliyun::Serverless::Service'
+    Properties:
+      Description: 'libreoffice example'
+      NasConfig: Auto
+    word2pdf:
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: index.handler
+        Runtime: nodejs8
+        Timeout: 60
+        MemorySize: 640
+        CodeUri: './'
+        EnvironmentVariables:
+          LD_LIBRARY_PATH: /code/.fun/root/usr/lib/x86_64-linux-gnu/nss
