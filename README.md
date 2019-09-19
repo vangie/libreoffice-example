@@ -1,4 +1,4 @@
-# libreoffice 模板项目
+# LibreOffice 模板项目
 
 该项目模板是一个基于 libreoffice 的 Word 转 PDF 工具，该项目是一个 funcraft 工程，借助 funcraft 工具进行依赖安装，上传 libreoffice 二进制文件到 NAS，并部署代码到阿里云的函数计算平台，作为一个 serverless 的 word 转换服务。
 
@@ -67,6 +67,72 @@ info unpack required /code/node_modules/iltorb/build/bindings/iltorb.node succes
 info install Successfully installed iltorb binary!
 npm WARN libreoffice-example@1.0.0 No description
 npm WARN libreoffice-example@1.0.0 No repository field.
+```
+
+## 同步文件到 NAS
+
+同步本地 NAS 目录 .fun/nas/auto-default/libreoffice/ 下的文件到 NAS 网盘
+
+```bash
+$ fun nas sync
+using template: template.yml
+
+start fun nas init...
+checking if _FUN_NAS_libreoffice needs to be deployed...
+Waiting for service _FUN_NAS_libreoffice to be deployed...
+        make sure role 'aliyunfcgeneratedrole-cn-shanghai--FUN-NAS-libreoffice' is exist
+        role 'aliyunfcgeneratedrole-cn-shanghai--FUN-NAS-libreoffice' is already exist
+        attaching police 'AliyunECSNetworkInterfaceManagementAccess' to role: aliyunfcgeneratedrole-cn-shanghai--FUN-NAS-libreoffice
+        attached police 'AliyunECSNetworkInterfaceManagementAccess' to role: aliyunfcgeneratedrole-cn-shanghai--FUN-NAS-libreoffice
+        using 'VpcConfig: Auto', Fun will try to generate related vpc resources automatically
+                vpc already generated, vpcId is: vpc-uf6jphcirs45lekbtw59k
+                vswitch already generated, vswitchId is: vsw-uf6gmxg7cyl3dlohlck9p
+                security group already generated, security group is: sg-uf6hkd156qntmzxr51h3
+        generated auto VpcConfig done:  {"vpcId":"vpc-uf6jphcirs45lekbtw59k","vswitchIds":["vsw-uf6gmxg7cyl3dlohlck9p"],"securityGroupId":"sg-uf6hkd156qntmzxr51h3"}
+        using 'NasConfig: Auto', Fun will try to generate related nas file system automatically
+                nas file system already generated, fileSystemId is: 3f95748ba7
+                nas file system mount target is already created, mountTargetDomain is: 3f95748ba7-ips53.cn-shanghai.nas.aliyuncs.com
+        generated auto NasConfig done:  {"UserId":10003,"GroupId":10003,"MountPoints":[{"ServerAddr":"3f95748ba7-ips53.cn-shanghai.nas.aliyuncs.com:/libreoffice","MountDir":"/mnt/auto"}]}
+        Checking if nas directories /libreoffice exists, if not, it will be created automatically
+        Checking nas directories done ["/libreoffice"]
+        Waiting for function fun-nas-function to be deployed...
+                Waiting for packaging function fun-nas-function code...
+                The function fun-nas-function has been packaged.
+                Waiting for HTTP trigger httpTrigger to be deployed...
+                methods: [ 'POST', 'GET' ]
+                url: https://1751705494334733.cn-shanghai.fc.aliyuncs.com/2016-08-15/proxy/_FUN_NAS_libreoffice/fun-nas-function/
+                function httpTrigger deploy success
+        function fun-nas-function deploy success
+service _FUN_NAS_libreoffice deploy success
+
+Create local NAS directory of service libreoffice:
+        /Users/vangie/Workspace/libreoffice-example/{{ projectName }}/.fun/nas/auto-default/libreoffice
+fun nas init Success
+
+starting upload /Users/vangie/Workspace/libreoffice-example/{{ projectName }}/.fun/nas/auto-default/libreoffice to nas://libreoffice/mnt/auto/
+NAS path checking...
+zipping /Users/vangie/Workspace/libreoffice-example/{{ projectName }}/.fun/nas/auto-default/libreoffice
+✔ /Users/vangie/Workspace/libreoffice-example/{{ projectName }}/.fun/tmp/nas/sync/Users/vangie/Workspace/libreoffice-example/{{ projectName }}/.fun/nas/auto-default/.fun-nas-generated-libreoffice.zip - zipped
+checking NAS tmp dir
+✔ check done
+Creating 87867855 bytes size file: /mnt/auto/.fun_nas_tmp/.fun-nas-generated-libreoffice.zip
+✔ create done
+✔ upload done
+checking uploaded NAS zip file hash
+✔ hash unchanged
+unzipping file
+
+✔ unzip done
+cleaning
+✔ clean done
+✔ upload completed!
+
+Tips for next step
+======================
+$ fun nas info      # Show NAS info
+$ fun nas ls        # List NAS files
+$ fun nas sync      # Synchronize files to nas
+$ fun deploy        # Deploy Resources
 ```
 
 ## 部署
