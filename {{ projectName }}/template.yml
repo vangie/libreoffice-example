@@ -6,13 +6,27 @@ Resources:
     Properties:
       Description: 'libreoffice example'
       NasConfig: Auto
-    word2pdf:
+      Policies:
+        - AliyunOSSFullAccess
+    word2pdf-nodejs8:
       Type: 'Aliyun::Serverless::Function'
       Properties:
         Handler: index.handler
         Runtime: nodejs8
         Timeout: 60
         MemorySize: 640
-        CodeUri: './'
+        CodeUri: './nodejs8'
         EnvironmentVariables:
           LD_LIBRARY_PATH: /code/.fun/root/usr/lib/x86_64-linux-gnu/nss
+    word2pdf-python3:
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: index.handler
+        Runtime: python3
+        Timeout: 60
+        MemorySize: 1024
+        CodeUri: './python3'
+        EnvironmentVariables:
+          LD_LIBRARY_PATH: /code/.fun/root/usr/lib/x86_64-linux-gnu/nss
+          OSS_REGION: cn-shanghai
+          OSS_BUCKET: vangie-test

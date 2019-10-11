@@ -32,41 +32,12 @@ Windows 和 Linux 用户安装请参考：
 $ fun init vangie/libreoffice-example
 ```
 
+修改 template.yml 文件，将 OSS_REGION 和 OSS_BUCKET 改为您账号的 OSS 配置。
+
 ## 安装依赖
 
 ```bash
-$ fun install
-
-Installing recursively on fun.yml
-
-skip pulling image aliyunfc/runtime-nodejs8:build-1.6.1...
-Task => [UNNAMED]
-     => apt-get update (if need)
-     => apt-get install -y -d -o=dir::cache=/code/.fun/tmp/install libnss3 --reinstall
-     => bash -c
-        for f in $(ls /code/.fun/tmp/install/archives/*.deb); do
-          dpkg -x $f /code/.fun/root;
-          mkdir -p /code/.fun/tmp/install/deb-control/${f%.*};
-          dpkg -e $f /code/.fun/tmp/install/deb-control/${f%.*};
-
-          if [ -f "/code/.fun/tmp/install/deb-control/${f%.*}/postinst" ]; then
-            FUN_INSTALL_LOCAL=true /code/.fun/tmp/install/deb-control/${f%.*}/postinst configure;
-          fi;
-        done;
-     => bash -c 'rm -rf /code/.fun/tmp/install/archives'
-Task => [UNNAMED]
-     => bash -c  'npm install --production && mkdir -p .fun/nas/auto-default/libreoffice/ && mv ./node_modules/fc-libreoffice/bin/lo.tar.br .fun/nas/auto-default/libreoffice/'
-info looking for cached prebuild @ /root/.npm/_prebuilds/95f620-iltorb-v2.4.3-node-v57-linux-x64.tar.gz
-http request GET https://github.com/MayhemYDG/iltorb/releases/download/v2.4.3/iltorb-v2.4.3-node-v57-linux-x64.tar.gz
-http 200 https://github.com/MayhemYDG/iltorb/releases/download/v2.4.3/iltorb-v2.4.3-node-v57-linux-x64.tar.gz
-info downloading to @ /root/.npm/_prebuilds/95f620-iltorb-v2.4.3-node-v57-linux-x64.tar.gz.152-11c561798275d.tmp
-info renaming to @ /root/.npm/_prebuilds/95f620-iltorb-v2.4.3-node-v57-linux-x64.tar.gz
-info unpacking @ /root/.npm/_prebuilds/95f620-iltorb-v2.4.3-node-v57-linux-x64.tar.gz
-info unpack resolved to /code/node_modules/iltorb/build/bindings/iltorb.node
-info unpack required /code/node_modules/iltorb/build/bindings/iltorb.node successfully
-info install Successfully installed iltorb binary!
-npm WARN libreoffice-example@1.0.0 No description
-npm WARN libreoffice-example@1.0.0 No repository field.
+$ fun build
 ```
 
 ## 同步文件到 NAS
@@ -75,104 +46,19 @@ npm WARN libreoffice-example@1.0.0 No repository field.
 
 ```bash
 $ fun nas sync
-using template: template.yml
-
-start fun nas init...
-checking if _FUN_NAS_libreoffice needs to be deployed...
-Waiting for service _FUN_NAS_libreoffice to be deployed...
-        make sure role 'aliyunfcgeneratedrole-cn-shanghai--FUN-NAS-libreoffice' is exist
-        role 'aliyunfcgeneratedrole-cn-shanghai--FUN-NAS-libreoffice' is already exist
-        attaching police 'AliyunECSNetworkInterfaceManagementAccess' to role: aliyunfcgeneratedrole-cn-shanghai--FUN-NAS-libreoffice
-        attached police 'AliyunECSNetworkInterfaceManagementAccess' to role: aliyunfcgeneratedrole-cn-shanghai--FUN-NAS-libreoffice
-        using 'VpcConfig: Auto', Fun will try to generate related vpc resources automatically
-                vpc already generated, vpcId is: vpc-uf6jphcirs45lekbtw59k
-                vswitch already generated, vswitchId is: vsw-uf6gmxg7cyl3dlohlck9p
-                security group already generated, security group is: sg-uf6hkd156qntmzxr51h3
-        generated auto VpcConfig done:  {"vpcId":"vpc-uf6jphcirs45lekbtw59k","vswitchIds":["vsw-uf6gmxg7cyl3dlohlck9p"],"securityGroupId":"sg-uf6hkd156qntmzxr51h3"}
-        using 'NasConfig: Auto', Fun will try to generate related nas file system automatically
-                nas file system already generated, fileSystemId is: 3f95748ba7
-                nas file system mount target is already created, mountTargetDomain is: 3f95748ba7-ips53.cn-shanghai.nas.aliyuncs.com
-        generated auto NasConfig done:  {"UserId":10003,"GroupId":10003,"MountPoints":[{"ServerAddr":"3f95748ba7-ips53.cn-shanghai.nas.aliyuncs.com:/libreoffice","MountDir":"/mnt/auto"}]}
-        Checking if nas directories /libreoffice exists, if not, it will be created automatically
-        Checking nas directories done ["/libreoffice"]
-        Waiting for function fun-nas-function to be deployed...
-                Waiting for packaging function fun-nas-function code...
-                The function fun-nas-function has been packaged.
-                Waiting for HTTP trigger httpTrigger to be deployed...
-                methods: [ 'POST', 'GET' ]
-                url: https://1751705494334733.cn-shanghai.fc.aliyuncs.com/2016-08-15/proxy/_FUN_NAS_libreoffice/fun-nas-function/
-                function httpTrigger deploy success
-        function fun-nas-function deploy success
-service _FUN_NAS_libreoffice deploy success
-
-Create local NAS directory of service libreoffice:
-        /Users/vangie/Workspace/libreoffice-example/{{ projectName }}/.fun/nas/auto-default/libreoffice
-fun nas init Success
-
-starting upload /Users/vangie/Workspace/libreoffice-example/{{ projectName }}/.fun/nas/auto-default/libreoffice to nas://libreoffice/mnt/auto/
-NAS path checking...
-zipping /Users/vangie/Workspace/libreoffice-example/{{ projectName }}/.fun/nas/auto-default/libreoffice
-✔ /Users/vangie/Workspace/libreoffice-example/{{ projectName }}/.fun/tmp/nas/sync/Users/vangie/Workspace/libreoffice-example/{{ projectName }}/.fun/nas/auto-default/.fun-nas-generated-libreoffice.zip - zipped
-checking NAS tmp dir
-✔ check done
-Creating 87867855 bytes size file: /mnt/auto/.fun_nas_tmp/.fun-nas-generated-libreoffice.zip
-✔ create done
-✔ upload done
-checking uploaded NAS zip file hash
-✔ hash unchanged
-unzipping file
-
-✔ unzip done
-cleaning
-✔ clean done
-✔ upload completed!
-
-Tips for next step
-======================
-$ fun nas info      # Show NAS info
-$ fun nas ls        # List NAS files
-$ fun nas sync      # Synchronize files to nas
-$ fun deploy        # Deploy Resources
 ```
 
 ## 部署
 
 ```bash
 $ fun deploy
-using template: template.yml
-using region: cn-shanghai
-using accountId: ***********4733
-using accessKeyId: ***********EUz3
-using timeout: 60
-
-Waiting for service libreoffice to be deployed...
-	make sure role 'aliyunfcgeneratedrole-cn-shanghai-libreoffice' is exist
-	role 'aliyunfcgeneratedrole-cn-shanghai-libreoffice' is already exist
-	attaching police 'AliyunECSNetworkInterfaceManagementAccess' to role: aliyunfcgeneratedrole-cn-shanghai-libreoffice
-	attached police 'AliyunECSNetworkInterfaceManagementAccess' to role: aliyunfcgeneratedrole-cn-shanghai-libreoffice
-	using 'VpcConfig: Auto', Fun will try to generate related vpc resources automatically
-		vpc already generated, vpcId is: vpc-uf6jphcirs45lekbtw59k
-		vswitch already generated, vswitchId is: vsw-uf6gmxg7cyl3dlohlck9p
-		security group already generated, security group is: sg-uf6hkd156qntmzxr51h3
-	generated auto VpcConfig done:  {"vpcId":"vpc-uf6jphcirs45lekbtw59k","vswitchIds":["vsw-uf6gmxg7cyl3dlohlck9p"],"securityGroupId":"sg-uf6hkd156qntmzxr51h3"}
-	using 'NasConfig: Auto', Fun will try to generate related nas file system automatically
-		nas file system already generated, fileSystemId is: 3f95748ba7
-		nas file system mount target is already created, mountTargetDomain is: 3f95748ba7-ips53.cn-shanghai.nas.aliyuncs.com
-	generated auto NasConfig done:  {"UserId":10003,"GroupId":10003,"MountPoints":[{"ServerAddr":"3f95748ba7-ips53.cn-shanghai.nas.aliyuncs.com:/libreoffice","MountDir":"/mnt/auto"}]}
-	Checking if nas directories /libreoffice exists, if not, it will be created automatically
-	Checking nas directories done ["/libreoffice"]
-	Waiting for function word2pdf to be deployed...
-		Waiting for packaging function word2pdf code...
-		The function word2pdf has been packaged. A total of 1019 files files were compressed and the final size was 6.36 MB
-	function word2pdf deploy success
-service libreoffice deploy success
 ```
 
 ## 执行
 
 ```bash
-$ fun invoke word2pdf
-using template: template.yml
+$ fun invoke word2pdf-nodejs8
+using template: .fun/build/artifacts/template.yml
 ========= FC invoke Logs begin =========
 FC Invoke Start RequestId: 20e7c0e4-d674-4be0-854f-bd876dc00043
 load code for handler:index.handler
@@ -188,6 +74,23 @@ pdf save to /tmp/example.pdf
 ```
 
 PDF 文件会写入到 /tmp 目录，如果希望能看到结果，可以把文件上传到 OSS，然后从 OSS 下载下来。
+
+```bash
+$ fun invoke word2pdf-python3
+using template: .fun/build/artifacts/template.yml
+========= FC invoke Logs begin =========
+FC Invoke Start RequestId: 3e4e5ca5-55aa-4361-88e3-184b17d1b33e
+convert /tmp/example.docx -> /tmp/example.pdf using filter : writer_pdf_Export
+FC Invoke End RequestId: 3e4e5ca5-55aa-4361-88e3-184b17d1b33e
+
+Duration: 3662.16 ms, Billed Duration: 3700 ms, Memory Size: 1024 MB, Max Memory Used: 222.48 MB
+========= FC invoke Logs end =========
+
+FC Invoke Result:
+upload to oss success, the url is http://vangie-test.oss-cn-shanghai.aliyuncs.com/example.pdf?security-token=CAISmwJ1q6Ft5B2yfSjIr4%2FPIe%2F8ir1n3oylSBHcjzJkT7Zeh4%2FquDz2IHpFfnFsBukftvU3nW5U5%2FYYlqZdVplOWU3Da%2BB364xK7Q75hxoyPX%2Fwv9I%2Bk5SANTW5KXyShb3%2FAYjQSNfaZY3eCTTtnTNyxr3XbCirW0ffX7SClZ9gaKZ8PGD6F00kYu1bPQx%2FssQXGGLMPPK2SH7Qj3HXEVBjt3gX6wo9y9zmnZDFtUKD0AymkbRJ%2BN%2BqGPX%2BMZkwZqUYesyuwel7epDG1CNt8BVQ%2FM909vceqG2f4o7EWgEAu0zYb7uEqMcqJQt4d7U8FaVLof7xj%2FRkt%2BDJkID6jh1LeOFSVSvcQ4avhc%2FFEvmkMdg3dL32K8pAU1cDq3ieGoABYo1HN8jkjweNasamY%2B0io9C2ovRum9qV50adS4RvGZhpLiZBaui%2F9J9v8iQq8EXkKkkTiURu7Qy6dyKzca4M6QrS51CgcJ4I%2Fel8KkzquqGrgDu0WXaQLVecwgD7bUjC11IK%2BExfiXMivAQRmTxdJUIbvzLW30a0M89wHpRV3EM%3D&OSSAccessKeyId=STS.NLzjUHgbFiNNJ7mk21C9rhJAZ&Expires=1570803861&Signature=gjwAOqHYNIpqOSYIUaXIFLcGxS8%3D
+```
+
+通过最后输出的 OSS 临时链接访问 pdf 文件，临时链接的有效期 10 分钟。
 
 ## 参考阅读
 
