@@ -24,6 +24,8 @@ Windows 和 Linux 用户安装请参考：
 
 安装好后，记得先执行 `fun config` 初始化一下配置。
 
+**备注: 本文介绍的技巧需要 Fun 版本大于等于 3.0.4 。**
+
 ## 初始化
 
 使用 fun init 命令可以快捷地将本模板项目初始化到本地。
@@ -95,3 +97,5 @@ upload to oss success, the url is http://vangie-test.oss-cn-shanghai.aliyuncs.co
 ## 参考阅读
 
 1. https://github.com/awesome-fc/fc-libreoffice
+2. [Funcraft](https://github.com/alibaba/funcraft)
+3. [Aliyun Serverless VSCode Extension](https://github.com/alibaba/serverless-vscode)
