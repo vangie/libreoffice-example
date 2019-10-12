@@ -24,7 +24,7 @@ Windows 和 Linux 用户安装请参考：
 
 安装好后，记得先执行 `fun config` 初始化一下配置。
 
-**备注: 本文介绍的技巧需要 Fun 版本大于等于 3.0.4 。**
+**备注: 本文介绍的技巧需要 Fun 版本大于等于 3.0.6 。**
 
 ## 初始化
 
@@ -39,7 +39,7 @@ $ fun init vangie/libreoffice-example
 ## 安装依赖
 
 ```bash
-$ fun build
+$ fun install
 ```
 
 ## 同步文件到 NAS
