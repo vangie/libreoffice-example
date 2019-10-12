@@ -1,2 +1,6 @@
 .fun
 node_modules
+event.evt
+.vscode
+.DS_Store
+.Funfile.generated.dockerfile
