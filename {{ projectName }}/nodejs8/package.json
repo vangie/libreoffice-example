@@ -9,6 +9,5 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "fc-libreoffice": "github:awesome-fc/fc-libreoffice#master"
   }
 }

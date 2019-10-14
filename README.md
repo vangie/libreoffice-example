@@ -34,9 +34,10 @@ Windows 和 Linux 用户安装请参考：
 $ fun init vangie/libreoffice-example
 ```
 
-修改 template.yml 文件，将 OSS_REGION 和 OSS_BUCKET 改为您账号的 OSS 配置。
+**修改 template.yml 文件，将 OSS_REGION 和 OSS_BUCKET 改为您账号的 OSS 配置。**
 
 ## 安装依赖
+
 
 ```bash
 $ fun install

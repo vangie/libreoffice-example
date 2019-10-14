@@ -1,7 +1,7 @@
 RUNTIME nodejs8
 RUN fun-install apt-get install libnss3
-COPY package.json /code
-COPY package-lock.json /code
-RUN npm install --production 
 RUN mkdir -p /mnt/auto/ 
-RUN mv ./node_modules/fc-libreoffice/bin/lo.tar.br /mnt/auto/
+WORKDIR /mnt/auto
+RUN curl https://fc-demo-public.oss-cn-hangzhou.aliyuncs.com/fun/examples/lo.tar.gz -o lo.tar.gz
+RUN tar -xzf lo.tar.gz
+RUN rm lo.tar.gz
