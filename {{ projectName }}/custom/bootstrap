@@ -1,0 +1,49 @@
+#!/usr/bin/env node
+
+const { exec, execSync } = require("child_process");
+const express = require('express');
+const app = express();
+
+const binPath = '/mnt/auto/instdir/program/soffice';
+const defaultArgs = ["--headless", "--invisible", "--nodefault", "--view", "--nolockcheck", "--nologo", "--norestore"];
+const filePath = '/tmp/example.docx';
+
+const invoke = (req, res) => {
+    
+    execSync(`cp -f /code/example.docx ${filePath}`);
+
+    exec(`cd /tmp && ${binPath} ${defaultArgs.join(' ')} --convert-to pdf --outdir /tmp ${filePath}`, (error, stdout, stderr) => {
+        if (error) {
+            console.log(`error: ${error.message}`);
+        }
+        if (stderr) {
+            console.log(`stderr: ${stderr}`);
+        }
+        console.log(`stdout: ${stdout}`);
+        // execSync(`cd /tmp && rm ${filePath}`);
+        // res.send(stdout);
+        res.send(execSync(`ls /tmp`));
+    });
+}
+
+const initialize = (req, res) => {
+    res.send('NOT Implement');
+}
+
+
+app.post('/', (req, res) => {
+    const ctrlPath = req.headers['x-fc-control-path'];
+    if (ctrlPath == '/invoke') {
+        invoke(req, res);
+    } else if (ctrlPath == '/initialize') {
+        initialize(req, res);
+    } else {
+        res.send(JSON.stringify(req.headers, null, 2));
+    }
+});
+
+app.post('/invoke', invoke);
+
+app.listen(9000, () => {
+    console.log('server listening on port 9000!');
+});

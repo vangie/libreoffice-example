@@ -1,4 +1,5 @@
 {
     "name": "libreoffice-example",
-    "description": "convert word to pdf by libreoffice which deploy on fc."
+    "description": "convert word to pdf by libreoffice which deploy on fc.",
+    "copyOnlyPaths": [ "**/*.docx" ] 
 }

@@ -32,3 +32,11 @@ Resources:
           LD_LIBRARY_PATH: /code/.fun/root/usr/lib/x86_64-linux-gnu/nss
           OSS_REGION: cn-shanghai
           OSS_BUCKET: vangie-test
+    word2pdf-custom:
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: 'project::example.App::HandleRequest'
+        Runtime: custom
+        Timeout: 60
+        MemorySize: 640
+        CodeUri: ./custom
