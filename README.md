@@ -61,7 +61,7 @@ $ fun deploy
 
 ## 执行
 
-调用 nodejs8 版本
+### 调用 nodejs8 版本
 
 ```bash
 $ fun invoke word2pdf-nodejs8
@@ -80,7 +80,7 @@ FC Invoke Result:
 http://vangie-test.oss-cn-shanghai.aliyuncs.com/example.pdf
 ```
 
-调用 python3 版本
+### 调用 python3 版本
 
 ```bash
 $ fun invoke word2pdf-python3
@@ -98,6 +98,24 @@ upload to oss success, the url is http://vangie-test.oss-cn-shanghai.aliyuncs.co
 ```
 
 通过最后输出的 OSS 临时链接访问 pdf 文件，临时链接的有效期 10 分钟。
+
+### 调用 custom 版本
+
+```bash
+$fun invoke word2pdf-custom
+using template: template.yml
+========= FC invoke Logs begin =========
+Not all function logs are available, please retry
+FC Invoke End RequestId: d1e1be15-afca-48d8-a97c-8f55fd016567
+Duration: 1955.96 ms, Billed Duration: 2000 ms, Memory Size: 640 MB, Max Memory Used: 55.70 MB
+========= FC invoke Logs end =========
+
+FC Invoke Result:
+example.docx
+example.pdf
+hsperfdata_root
+pear
+```
 
 ## 参考阅读
 
