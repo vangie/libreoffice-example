@@ -43,6 +43,21 @@ $ fun init vangie/libreoffice-example
 $ fun install
 ```
 
+## 本地测试
+
+```bash
+# 本地测试 nodejs8 版本
+$ DISABLE_BIND_MOUNT_TMP_DIR=true fun local invoke word2pdf-nodejs8
+
+# 本地测试 python3 版本
+$ DISABLE_BIND_MOUNT_TMP_DIR=true fun local invoke word2pdf-python3
+
+# 本地测试 custom 版本
+$ DISABLE_BIND_MOUNT_TMP_DIR=true fun local invoke word2pdf-custom
+```
+
+注意：`DISABLE_BIND_MOUNT_TMP_DIR=true` 环境变量主要是让 fun 不往 container 里挂载 /tmp 目录，因为 libreoffice 有个已知的问题，如果 /tmp 是 bind mount 的会直接退出，没有任何报错。
+
 ## 同步文件到 NAS
 
 同步本地 NAS 目录 .fun/nas/auto-default/libreoffice/ 下的文件到 NAS 网盘
@@ -62,6 +77,7 @@ $ fun deploy
 ## 执行
 
 ### 调用 nodejs8 版本
+
 
 ```bash
 $ fun invoke word2pdf-nodejs8

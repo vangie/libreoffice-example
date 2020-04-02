@@ -1,7 +1,10 @@
 RUNTIME nodejs8
 RUN fun-install apt-get install libnss3
+RUN curl -L https://fc-demo-public.oss-cn-hangzhou.aliyuncs.com/fun/examples/libstdc%2B%2B6_6.3.0-18%2Bdeb9u1_amd64.deb -o /tmp/libstdc++6_6.3.0-18+deb9u1_amd64.deb
+RUN dpkg -x /tmp/libstdc++6_6.3.0-18+deb9u1_amd64.deb /code/.fun/root
+RUN rm /tmp/libstdc++6_6.3.0-18+deb9u1_amd64.deb
 RUN mkdir -p /mnt/auto/ 
 WORKDIR /mnt/auto
-RUN curl https://fc-demo-public.oss-cn-hangzhou.aliyuncs.com/fun/examples/lo.tar.gz -o lo.tar.gz
+RUN curl https://fc-demo-public.oss-cn-hangzhou.aliyuncs.com/fun/examples/lo_7.0.0.0.alpha0.tar.gz -o lo.tar.gz
 RUN tar -xzf lo.tar.gz
 RUN rm lo.tar.gz

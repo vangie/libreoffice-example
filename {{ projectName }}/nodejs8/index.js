@@ -9,11 +9,11 @@ module.exports.handler = (event, context, callback) => {
 
   execSync(`cp -f /code/example.docx ${filePath}`);
 
-  const logs = execSync(
-    `cd /tmp && ${binPath} ${defaultArgs.join(' ')} --convert-to pdf --outdir /tmp ${filePath}`
-  );
+  const cmd = `${binPath} ${defaultArgs.join(' ')} --convert-to pdf --outdir /tmp ${filePath}`;
 
-  execSync(`cd /tmp && rm ${filePath}`);
+  const logs = execSync(cmd, { cwd: '/tmp' });
+
+  execSync(`rm ${filePath}`, { cwd: '/tmp'});
 
   console.log(logs.toString('utf8'));
 

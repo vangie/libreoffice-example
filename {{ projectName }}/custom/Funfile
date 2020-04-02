@@ -3,7 +3,7 @@ RUN fun-install apt-get install libcurl3-gnutls
 RUN fun-install apt-get install libxslt1.1
 RUN mkdir -p /mnt/auto/ 
 WORKDIR /mnt/auto
-RUN curl https://fc-demo-public.oss-cn-hangzhou.aliyuncs.com/fun/examples/lo.tar.gz -o lo.tar.gz
+RUN curl https://fc-demo-public.oss-cn-hangzhou.aliyuncs.com/fun/examples/lo_7.0.0.0.alpha0.tar.gz -o lo.tar.gz
 RUN tar -xzf lo.tar.gz
 RUN rm lo.tar.gz
 
